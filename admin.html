@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Админка | BE FABULOUS</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="admin-page">
+    <main class="admin-login" id="loginScreen">
+      <section class="login-box">
+        <img src="public/be-fabulous-logo-white.png" alt="BE FABULOUS" />
+        <h1>Админская часть</h1>
+        <p>Введите PIN для доступа к клиентам и заказам.</p>
+        <form id="loginForm">
+          <input id="pinInput" placeholder="PIN" type="password" />
+          <button class="button primary" type="submit">Войти</button>
+        </form>
+        <a href="index.html">Вернуться на сайт</a>
+      </section>
+    </main>
+
+    <main class="admin-shell" id="adminScreen" hidden>
+      <aside class="admin-sidebar">
+        <img src="public/be-fabulous-logo-white.png" alt="BE FABULOUS" />
+        <a href="index.html">Главная</a>
+        <a href="price.html">Price</a>
+        <a href="#orders">Заказы</a>
+        <a href="#clients">Клиенты</a>
+        <button id="logoutButton" type="button">Выйти</button>
+      </aside>
+
+      <section class="admin-content">
+        <div class="admin-top">
+          <div>
+            <p class="eyebrow">BE FABULOUS</p>
+            <h1>Клиенты и история заказов</h1>
+          </div>
+          <div class="admin-stats">
+            <span id="ordersCount">0 заказов</span>
+            <span id="clientsCount">0 клиентов</span>
+          </div>
+        </div>
+
+        <form class="admin-form" id="adminOrderForm">
+          <h2>Добавить заказ</h2>
+          <input name="name" required placeholder="Имя" />
+          <input name="phone" required placeholder="Телефон" />
+          <select name="service" id="adminServiceSelect"></select>
+          <input name="date" type="date" />
+          <textarea name="comment" placeholder="Комментарий"></textarea>
+          <button class="button primary" type="submit">Сохранить</button>
+        </form>
+
+        <section class="admin-section" id="orders">
+          <div class="admin-section-head">
+            <h2>Заказы</h2>
+            <input id="orderSearch" placeholder="Поиск по имени, телефону, услуге" />
+          </div>
+          <div class="order-list" id="orderList"></div>
+        </section>
+
+        <section class="admin-section" id="clients">
+          <h2>Клиенты</h2>
+          <div class="client-grid" id="clientGrid"></div>
+        </section>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

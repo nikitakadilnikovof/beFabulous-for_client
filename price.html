@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Price | BE FABULOUS</title>
+    <meta name="description" content="Прайс BE FABULOUS: ремонт одежды, подгонка, индивидуальный пошив и правила расчета стоимости." />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="price-page">
+    <header class="site-header">
+      <a class="brand" href="index.html#top" aria-label="BE FABULOUS">
+        <img src="public/be-fabulous-logo-white.png" alt="BE FABULOUS" />
+      </a>
+      <nav aria-label="Основная навигация">
+        <a href="index.html#top">Главная</a>
+        <a href="price.html" aria-current="page">Price</a>
+        <a href="#booking">Консультация</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="price-hero">
+        <p class="eyebrow">BE FABULOUS Price</p>
+        <h1>Прайс и расчет стоимости</h1>
+        <p>
+          Все цены указаны «от». Точная сумма определяется после осмотра изделия: важны ткань, конструкция,
+          объем ручной работы, срочность, количество примерок и наличие декоративных деталей.
+        </p>
+      </section>
+
+      <section class="section price-rules">
+        <div class="section-title">
+          <p class="eyebrow">How price works</p>
+          <h2>Как определяется стоимость</h2>
+        </div>
+        <div class="rule-grid">
+          <article>
+            <span>01</span>
+            <h3>Сложность изделия</h3>
+            <p>Чем сложнее крой, подкладка, молнии, корсетные элементы или декор, тем больше времени занимает работа.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Материал</h3>
+            <p>Тонкие, эластичные, плотные, деликатные и дорогие ткани требуют разной техники обработки.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Объем правок</h3>
+            <p>Стоимость зависит от количества зон, которые нужно изменить: длина, талия, боковые швы, рукава, посадка.</p>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>Сроки</h3>
+            <p>Срочные заказы рассчитываются с доплатой, потому что меняют рабочий график ателье.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="repair">
+        <div class="section-title">
+          <p class="eyebrow">Repair & fit</p>
+          <h2>Ремонт и подгонка</h2>
+        </div>
+        <div class="price-grid" id="repairServices"></div>
+      </section>
+
+      <section class="section sewing-band" id="custom">
+        <div class="section-title">
+          <p class="eyebrow">Custom tailoring</p>
+          <h2>Индивидуальный пошив</h2>
+        </div>
+        <div class="sewing-list" id="sewingServices"></div>
+      </section>
+
+      <section class="section details">
+        <article>
+          <h2>В стоимость пошива входит</h2>
+          <ul class="check-list" id="includedItems"></ul>
+        </article>
+        <article>
+          <h2>Не входит в стоимость</h2>
+          <p>Ткань и все материалы оплачиваются отдельно.</p>
+          <ul class="check-list muted" id="excludedItems"></ul>
+        </article>
+      </section>
+
+      <section class="section extras" id="extras"></section>
+
+      <section class="section price-footer-cta">
+        <h2>Хотите уточнить стоимость?</h2>
+        <a class="button primary" href="#booking">Получить консультацию</a>
+      </section>
+
+      <section class="section booking consultation" id="booking">
+        <div class="booking-copy">
+          <p class="eyebrow">Консультация</p>
+          <h2>Задайте вопрос по цене, срокам или изделию</h2>
+          <p>Оставьте имя, номер телефона и комментарий. Мы свяжемся с вами, уточним детали и подскажем ориентировочную стоимость или удобное время для визита.</p>
+        </div>
+        <form class="booking-form" id="bookingForm">
+          <label>
+            Имя
+            <input name="name" required placeholder="Ваше имя" />
+          </label>
+          <label>
+            Телефон
+            <input name="phone" required placeholder="+90 ..." />
+          </label>
+          <label class="wide">
+            Комментарий или вопрос
+            <textarea name="comment" placeholder="Напишите, по какому вопросу нужна консультация: цена, сроки, ремонт, пошив или примерка"></textarea>
+          </label>
+          <button class="button primary wide" type="submit">Отправить запрос</button>
+          <p class="success wide" id="bookingSuccess" hidden>
+            Запрос сохранен. Мы свяжемся с вами для консультации.
+          </p>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contacts">
+      <div class="footer-brand">
+        <img src="public/be-fabulous-logo-white.png" alt="BE FABULOUS" />
+        <p>Ателье в Antalya: ремонт, подгонка и индивидуальный пошив с аккуратной посадкой.</p>
+      </div>
+      <div class="footer-column">
+        <h2>Навигация</h2>
+        <a href="index.html#top">Главная</a>
+        <a href="price.html">Price</a>
+        <a href="#booking">Консультация</a>
+        <a href="#contacts">Контакты</a>
+      </div>
+      <div class="footer-column">
+        <h2>Контакты</h2>
+        <a href="tel:+905012272268">+90 501 227 22 68</a>
+        <span>10:00 - 21:00</span>
+      </div>
+      <div class="footer-column footer-social">
+        <h2>Соцсети</h2>
+        <div class="social-icons">
+          <a href="https://www.instagram.com/p/DPW7S3TiEmW/?igsh=anNzNTA3MTk5bmN2" target="_blank" rel="noreferrer" aria-label="Instagram" title="Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="4"></rect><circle cx="12" cy="12" r="3.2"></circle><circle cx="16.4" cy="7.6" r="0.8"></circle></svg>
+          </a>
+          <a href="tg://resolve?phone=905012272268" aria-label="Telegram" title="Telegram">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 5 4.7 11.2c-1 .4-1 1.1-.2 1.4l3.9 1.2 1.5 4.7c.2.7.8.9 1.3.3l2.1-2.1 4.1 3c.7.4 1.2.2 1.4-.7L21.3 6c.2-.9-.4-1.3-1.3-1Z"></path><path d="m8.7 13.6 8.4-5.3-6.5 6.6-.2 2.6"></path></svg>
+          </a>
+          <a href="https://wa.me/905012272268" target="_blank" rel="noreferrer" aria-label="WhatsApp" title="WhatsApp">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.4 19.1 6.5 16A7.6 7.6 0 1 1 9 18.2l-3.6.9Z"></path><path d="M9.3 8.8c.2-.5.4-.5.7-.5h.5c.2 0 .4.1.5.4l.7 1.6c.1.3.1.5-.1.7l-.4.5c-.2.2-.1.4 0 .6.4.7 1 1.4 1.8 1.9.2.1.4.2.6 0l.6-.7c.2-.2.4-.2.7-.1l1.6.8c.3.1.4.3.4.6 0 .7-.5 1.5-1.1 1.7-.6.3-2.8.1-5-2.1-2.2-2.1-2.7-4.4-2.5-5.1Z"></path></svg>
+          </a>
+        </div>
+      </div>
+      <div class="map-card">
+        <div>
+          <h2>Местоположение</h2>
+          <a href="https://www.google.com/maps/search/?api=1&query=Liman%2C%2020.%20Sk.%20No%3A5%2C%2007130%20Baht%C4%B1l%C4%B1%20K%C3%B6y%C3%BC%20K%C3%B6y%C3%BC%2FKonyaalt%C4%B1%2FAntalya" target="_blank" rel="noreferrer">Liman, 20. Sk. No:5, Konyaaltı/Antalya</a>
+        </div>
+        <iframe title="BE FABULOUS на карте" loading="lazy" src="https://www.google.com/maps?q=Liman%2C%2020.%20Sk.%20No%3A5%2C%2007130%20Baht%C4%B1l%C4%B1%20K%C3%B6y%C3%BC%20K%C3%B6y%C3%BC%2FKonyaalt%C4%B1%2FAntalya&output=embed"></iframe>
+      </div>
+    </footer>
+
+    <script src="script.js?v=telegram-success-2"></script>
+  </body>
+</html>
