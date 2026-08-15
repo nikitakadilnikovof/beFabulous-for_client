@@ -1,5 +1,6 @@
 const STORAGE_KEY = "be-fabulous-orders";
 const STATUSES = ["Новая заявка", "В работе", "Примерка", "Готово", "Выдано"];
+const TELEGRAM_WORKER_URL = "https://be-fabulous-send-message-to-tg.nikitakadilnikovof.workers.dev/";
 
 const repairServices = [
   {
@@ -201,6 +202,7 @@ function initHomePage() {
       service: "Консультация",
       date: "",
       comment: String(form.get("comment") || "").trim(),
+      page: window.location.href,
       status: "Новая заявка",
       createdAt,
       history: [`${createdAt}: запрос на консультацию создан через сайт`],
@@ -212,7 +214,11 @@ function initHomePage() {
     let telegramAccepted = false;
 
     try {
-      const response = await fetch("/api/send-telegram", {
+      if (!TELEGRAM_WORKER_URL.startsWith("https://")) {
+        throw new Error("не указан адрес Cloudflare Worker");
+      }
+
+      const response = await fetch(TELEGRAM_WORKER_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(order),
