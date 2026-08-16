@@ -448,6 +448,24 @@ function initRevealAnimations() {
   elements.forEach((element) => observer.observe(element));
 }
 
+function disablePageZoom() {
+  window.addEventListener("wheel", (event) => {
+    if (!event.ctrlKey && !event.metaKey) return;
+    event.preventDefault();
+  }, { passive: false });
+
+  window.addEventListener("keydown", (event) => {
+    if (!event.ctrlKey && !event.metaKey) return;
+    if (!["+", "=", "-", "_", "0"].includes(event.key)) return;
+    event.preventDefault();
+  });
+
+  window.addEventListener("gesturestart", (event) => {
+    event.preventDefault();
+  });
+}
+
+disablePageZoom();
 renderPriceContent();
 initHomePage();
 initAdminPage();
