@@ -449,6 +449,8 @@ function initRevealAnimations() {
 }
 
 function disablePageZoom() {
+  const isTouchViewport = () => window.matchMedia("(hover: none) and (pointer: coarse), (max-width: 1024px)").matches;
+
   window.addEventListener("wheel", (event) => {
     if (!event.ctrlKey && !event.metaKey) return;
     event.preventDefault();
@@ -460,9 +462,28 @@ function disablePageZoom() {
     event.preventDefault();
   });
 
-  window.addEventListener("gesturestart", (event) => {
-    event.preventDefault();
+  ["gesturestart", "gesturechange", "gestureend"].forEach((eventName) => {
+    window.addEventListener(eventName, (event) => {
+      if (!isTouchViewport()) return;
+      event.preventDefault();
+    });
   });
+
+  window.addEventListener("touchmove", (event) => {
+    if (!isTouchViewport() || event.touches.length < 2) return;
+    event.preventDefault();
+  }, { passive: false });
+
+  let lastTouchEnd = 0;
+  window.addEventListener("touchend", (event) => {
+    if (!isTouchViewport()) return;
+
+    const now = Date.now();
+    if (now - lastTouchEnd <= 300) {
+      event.preventDefault();
+    }
+    lastTouchEnd = now;
+  }, { passive: false });
 }
 
 disablePageZoom();
