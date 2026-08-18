@@ -244,6 +244,11 @@ nav a[aria-current="page"] {
   line-height: 1.18;
 }
 
+.price-hero .price-data-message {
+  color: #ffcf8a;
+  font-size: 0.95rem;
+}
+
 .eyebrow {
   margin: 0 0 14px;
   color: var(--silver-soft);

@@ -1,108 +1,110 @@
 const STORAGE_KEY = "be-fabulous-orders";
 const STATUSES = ["Новая заявка", "В работе", "Примерка", "Готово", "Выдано"];
 const TELEGRAM_WORKER_URL = "https://be-fabulous-send-message-to-tg.nikitakadilnikovof.workers.dev/";
+const SERVICES_URL = "public/data/services.json";
 
-const repairServices = [
-  {
-    title: "Брюки и джинсы",
-    items: [
-      ["Подшить брюки", "от 800 ₺"],
-      ["Укоротить джинсы", "от 800 ₺"],
-      ["Ушить брюки по бокам", "от 900 ₺"],
-      ["Ушить брюки по талии", "от 900 ₺"],
-      ["Замена молнии в брюках", "от 700 ₺"],
-      ["Ремонт / замена карманов", "от 600 ₺"],
-      ["Ремонт / замена пояса", "от 700 ₺"],
-    ],
-  },
-  {
-    title: "Юбки",
-    items: [
-      ["Подшить юбку", "от 800 ₺"],
-      ["Ушить юбку", "от 900 ₺"],
-      ["Замена молнии в юбке", "от 700 ₺"],
-    ],
-  },
-  {
-    title: "Платья",
-    items: [
-      ["Подшить платье", "от 1 000 ₺"],
-      ["Ушить платье", "от 1 200 ₺"],
-      ["Посадка платья по фигуре", "от 1 500 ₺"],
-      ["Замена молнии в платье", "от 900 ₺"],
-    ],
-  },
-  {
-    title: "Верхняя одежда",
-    items: [
-      ["Подшить / укоротить рукава", "от 700 ₺"],
-      ["Подшить пиджак", "от 1 200 ₺"],
-      ["Ушить пиджак", "от 1 500 ₺"],
-      ["Подшить пальто", "от 1 500 ₺"],
-      ["Ушить пальто", "от 1 800 ₺"],
-      ["Замена молнии в куртке", "от 900 ₺"],
-    ],
-  },
-  {
-    title: "Ремонт деталей",
-    items: [
-      ["Ремонт подкладки", "от 800 ₺"],
-      ["Ремонт разрывов и швов", "от 500 ₺"],
-      ["Пришить пуговицу", "от 250 ₺"],
-      ["Изготовление петли", "от 300 ₺"],
-      ["Замена кнопки", "от 250 ₺"],
-    ],
-  },
-];
+const fallbackServices = {
+  repairServices: [
+    {
+      title: "Брюки и джинсы",
+      items: [
+        { name: "Подшить брюки", price: "от 800 ₺" },
+        { name: "Укоротить джинсы", price: "от 800 ₺" },
+        { name: "Ушить брюки по бокам", price: "от 900 ₺" },
+        { name: "Ушить брюки по талии", price: "от 900 ₺" },
+        { name: "Замена молнии в брюках", price: "от 700 ₺" },
+        { name: "Ремонт / замена карманов", price: "от 600 ₺" },
+        { name: "Ремонт / замена пояса", price: "от 700 ₺" },
+      ],
+    },
+    {
+      title: "Юбки",
+      items: [
+        { name: "Подшить юбку", price: "от 800 ₺" },
+        { name: "Ушить юбку", price: "от 900 ₺" },
+        { name: "Замена молнии в юбке", price: "от 700 ₺" },
+      ],
+    },
+    {
+      title: "Платья",
+      items: [
+        { name: "Подшить платье", price: "от 1 000 ₺" },
+        { name: "Ушить платье", price: "от 1 200 ₺" },
+        { name: "Посадка платья по фигуре", price: "от 1 500 ₺" },
+        { name: "Замена молнии в платье", price: "от 900 ₺" },
+      ],
+    },
+    {
+      title: "Верхняя одежда",
+      items: [
+        { name: "Подшить / укоротить рукава", price: "от 700 ₺" },
+        { name: "Подшить пиджак", price: "от 1 200 ₺" },
+        { name: "Ушить пиджак", price: "от 1 500 ₺" },
+        { name: "Подшить пальто", price: "от 1 500 ₺" },
+        { name: "Ушить пальто", price: "от 1 800 ₺" },
+        { name: "Замена молнии в куртке", price: "от 900 ₺" },
+      ],
+    },
+    {
+      title: "Ремонт деталей",
+      items: [
+        { name: "Ремонт подкладки", price: "от 800 ₺" },
+        { name: "Ремонт разрывов и швов", price: "от 500 ₺" },
+        { name: "Пришить пуговицу", price: "от 250 ₺" },
+        { name: "Изготовление петли", price: "от 300 ₺" },
+        { name: "Замена кнопки", price: "от 250 ₺" },
+      ],
+    },
+  ],
+  sewingServices: [
+    { name: "Топ / корсет", price: "от 4 000 ₺" },
+    { name: "Юбка", price: "от 4 500 ₺" },
+    { name: "Брюки", price: "от 5 500 ₺" },
+    { name: "Рубашка / блуза", price: "от 5 500 ₺" },
+    { name: "Платье простого кроя", price: "от 7 500 ₺" },
+    { name: "Платье сложного кроя", price: "от 10 000 ₺" },
+    { name: "Вечернее платье", price: "от 14 000 ₺" },
+    { name: "Вечернее платье сложной конструкции", price: "от 18 000 ₺" },
+    { name: "Жакет", price: "от 8 500 ₺" },
+    { name: "Жакет + юбка", price: "от 13 000 ₺" },
+    { name: "Брючный костюм", price: "от 14 000 ₺" },
+    { name: "Пальто", price: "от 13 000 ₺" },
+    { name: "Тренч", price: "от 15 000 ₺" },
+    { name: "Изделие из меха", price: "от 20 000 ₺" },
+    { name: "Свадебное платье", price: "от 25 000 ₺" },
+    { name: "Сложное свадебное платье", price: "от 35 000 ₺" },
+  ],
+  includedItems: [
+    "Консультация и обсуждение модели",
+    "Снятие мерок",
+    "Разработка модели / корректировка модели",
+    "Построение и подготовка лекал",
+    "Раскрой изделия",
+    "Пошив изделия",
+    "ВТО - влажно-тепловая обработка",
+    "Примерки и необходимые корректировки по фигуре",
+    "Финальная обработка",
+    "Контроль качества изделия",
+  ],
+  excludedItems: [
+    "Основная ткань",
+    "Подкладочная ткань",
+    "Молнии",
+    "Пуговицы и кнопки",
+    "Кружево",
+    "Стразы и декоративные элементы",
+    "Вышивка и ручной декор",
+    "Другие необходимые материалы и фурнитура",
+  ],
+  extras: [
+    { name: "Срочный заказ", price: "+30%" },
+    { name: "Сложный декор / ручная работа", price: "от 2 000 ₺" },
+    { name: "Индивидуальное моделирование", price: "от 2 500 ₺" },
+  ],
+};
 
-const sewingServices = [
-  ["Топ / корсет", "от 4 000 ₺"],
-  ["Юбка", "от 4 500 ₺"],
-  ["Брюки", "от 5 500 ₺"],
-  ["Рубашка / блуза", "от 5 500 ₺"],
-  ["Платье простого кроя", "от 7 500 ₺"],
-  ["Платье сложного кроя", "от 10 000 ₺"],
-  ["Вечернее платье", "от 14 000 ₺"],
-  ["Вечернее платье сложной конструкции", "от 18 000 ₺"],
-  ["Жакет", "от 8 500 ₺"],
-  ["Жакет + юбка", "от 13 000 ₺"],
-  ["Брючный костюм", "от 14 000 ₺"],
-  ["Пальто", "от 13 000 ₺"],
-  ["Тренч", "от 15 000 ₺"],
-  ["Изделие из меха", "от 20 000 ₺"],
-  ["Свадебное платье", "от 25 000 ₺"],
-  ["Сложное свадебное платье", "от 35 000 ₺"],
-];
-
-const includedItems = [
-  "Консультация и обсуждение модели",
-  "Снятие мерок",
-  "Разработка модели / корректировка модели",
-  "Построение и подготовка лекал",
-  "Раскрой изделия",
-  "Пошив изделия",
-  "ВТО - влажно-тепловая обработка",
-  "Примерки и необходимые корректировки по фигуре",
-  "Финальная обработка",
-  "Контроль качества изделия",
-];
-
-const excludedItems = [
-  "Основная ткань",
-  "Подкладочная ткань",
-  "Молнии",
-  "Пуговицы и кнопки",
-  "Кружево",
-  "Стразы и декоративные элементы",
-  "Вышивка и ручной декор",
-  "Другие необходимые материалы и фурнитура",
-];
-
-const extras = [
-  ["Срочный заказ", "+30%"],
-  ["Сложный декор / ручная работа", "от 2 000 ₺"],
-  ["Индивидуальное моделирование", "от 2 500 ₺"],
-];
+let servicesCatalog = fallbackServices;
+let servicesLoadedFromFallback = false;
 
 function getOrders() {
   try {
@@ -116,8 +118,59 @@ function saveOrders(orders) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(orders));
 }
 
+function normalizeServiceItem(item) {
+  if (Array.isArray(item)) {
+    return { name: String(item[0] || "").trim(), price: String(item[1] || "").trim() };
+  }
+
+  return {
+    name: String(item?.name || "").trim(),
+    price: String(item?.price || "").trim(),
+  };
+}
+
+function normalizeServicesCatalog(data) {
+  const repairServices = Array.isArray(data?.repairServices) ? data.repairServices : [];
+  const sewingServices = Array.isArray(data?.sewingServices) ? data.sewingServices : [];
+  const includedItems = Array.isArray(data?.includedItems) ? data.includedItems : [];
+  const excludedItems = Array.isArray(data?.excludedItems) ? data.excludedItems : [];
+  const extras = Array.isArray(data?.extras) ? data.extras : [];
+
+  const normalized = {
+    repairServices: repairServices.map((group) => ({
+      title: String(group?.title || "").trim(),
+      items: (Array.isArray(group?.items) ? group.items : []).map(normalizeServiceItem).filter((item) => item.name && item.price),
+    })).filter((group) => group.title && group.items.length),
+    sewingServices: sewingServices.map(normalizeServiceItem).filter((item) => item.name && item.price),
+    includedItems: includedItems.map((item) => String(item || "").trim()).filter(Boolean),
+    excludedItems: excludedItems.map((item) => String(item || "").trim()).filter(Boolean),
+    extras: extras.map(normalizeServiceItem).filter((item) => item.name && item.price),
+  };
+
+  if (!normalized.repairServices.length && !normalized.sewingServices.length) {
+    throw new Error("services.json не содержит услуг");
+  }
+
+  return normalized;
+}
+
+async function loadServicesCatalog() {
+  try {
+    const response = await fetch(SERVICES_URL, { cache: "no-store" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    servicesCatalog = normalizeServicesCatalog(await response.json());
+  } catch (error) {
+    servicesCatalog = fallbackServices;
+    servicesLoadedFromFallback = true;
+    console.warn("Не удалось загрузить services.json, используется резервный прайс.", error);
+  }
+}
+
 function allServices() {
-  return [...repairServices.flatMap((group) => group.items), ...sewingServices];
+  return [
+    ...servicesCatalog.repairServices.flatMap((group) => group.items),
+    ...servicesCatalog.sewingServices,
+  ];
 }
 
 function escapeHtml(value) {
@@ -132,20 +185,47 @@ function escapeHtml(value) {
 
 function fillServiceSelect(select) {
   if (!select) return;
-  select.innerHTML = allServices()
-    .map(([name]) => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`)
-    .join("");
+  select.innerHTML = [
+    `<option value="">Консультация / уточнить услугу</option>`,
+    ...allServices().map((item) => `<option value="${escapeHtml(item.name)}">${escapeHtml(item.name)}</option>`),
+  ].join("");
+}
+
+function fillServiceSelects() {
+  document.querySelectorAll("[data-service-select], #adminServiceSelect").forEach(fillServiceSelect);
+}
+
+function renderPriceStatus() {
+  if (!servicesLoadedFromFallback || !document.querySelector(".price-page")) return;
+
+  const hero = document.querySelector(".price-hero");
+  if (!hero || hero.querySelector(".price-data-message")) return;
+
+  const message = document.createElement("p");
+  message.className = "price-data-message";
+  message.textContent = "Прайс временно показан из резервного списка. Если цена важна, уточните ее при консультации.";
+  hero.append(message);
+}
+
+function renderServiceRows(items, className) {
+  return items.map((item) => `
+    <div${className ? ` class="${className}"` : ""}>
+      <span>${escapeHtml(item.name)}</span><strong>${escapeHtml(item.price)}</strong>
+    </div>
+  `).join("");
 }
 
 function renderPriceContent() {
+  renderPriceStatus();
+
   const repairRoot = document.querySelector("#repairServices");
   if (repairRoot) {
-    repairRoot.innerHTML = repairServices.map((group) => `
+    repairRoot.innerHTML = servicesCatalog.repairServices.map((group) => `
       <article class="price-card">
         <h3>${escapeHtml(group.title)}</h3>
         <ul>
-          ${group.items.map(([name, price]) => `
-            <li><span>${escapeHtml(name)}</span><strong>${escapeHtml(price)}</strong></li>
+          ${group.items.map((item) => `
+            <li><span>${escapeHtml(item.name)}</span><strong>${escapeHtml(item.price)}</strong></li>
           `).join("")}
         </ul>
       </article>
@@ -154,26 +234,22 @@ function renderPriceContent() {
 
   const sewingRoot = document.querySelector("#sewingServices");
   if (sewingRoot) {
-    sewingRoot.innerHTML = sewingServices.map(([name, price]) => `
-      <div class="sewing-row"><span>${escapeHtml(name)}</span><strong>${escapeHtml(price)}</strong></div>
-    `).join("");
+    sewingRoot.innerHTML = renderServiceRows(servicesCatalog.sewingServices, "sewing-row");
   }
 
   const includedRoot = document.querySelector("#includedItems");
   if (includedRoot) {
-    includedRoot.innerHTML = includedItems.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+    includedRoot.innerHTML = servicesCatalog.includedItems.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
   }
 
   const excludedRoot = document.querySelector("#excludedItems");
   if (excludedRoot) {
-    excludedRoot.innerHTML = excludedItems.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+    excludedRoot.innerHTML = servicesCatalog.excludedItems.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
   }
 
   const extrasRoot = document.querySelector("#extras");
   if (extrasRoot) {
-    extrasRoot.innerHTML = extras.map(([name, price]) => `
-      <div><span>${escapeHtml(name)}</span><strong>${escapeHtml(price)}</strong></div>
-    `).join("");
+    extrasRoot.innerHTML = renderServiceRows(servicesCatalog.extras, "");
   }
 }
 
@@ -199,7 +275,7 @@ function initHomePage() {
       id: crypto.randomUUID(),
       name: String(form.get("name") || "").trim(),
       phone: String(form.get("phone") || "").trim(),
-      service: "Консультация",
+      service: String(form.get("service") || "Консультация").trim(),
       date: "",
       comment: String(form.get("comment") || "").trim(),
       page: window.location.href,
@@ -239,6 +315,7 @@ function initHomePage() {
       }
 
       event.currentTarget.reset();
+      fillServiceSelects();
       showBookingMessage("success", "Запрос отправлен. Мы свяжемся с вами для консультации.");
     } catch (error) {
       if (telegramAccepted) {
@@ -267,7 +344,7 @@ function initAdminPage() {
   const clientGrid = document.querySelector("#clientGrid");
   const search = document.querySelector("#orderSearch");
 
-  fillServiceSelect(document.querySelector("#adminServiceSelect"));
+  fillServiceSelects();
 
   function openAdmin() {
     loginScreen.hidden = true;
@@ -293,7 +370,7 @@ function initAdminPage() {
       id: crypto.randomUUID(),
       name: form.get("name"),
       phone: form.get("phone"),
-      service: form.get("service"),
+      service: form.get("service") || "Консультация",
       date: form.get("date"),
       comment: form.get("comment"),
       status: "Новая заявка",
@@ -302,7 +379,7 @@ function initAdminPage() {
     };
     saveOrders([order, ...getOrders()]);
     event.currentTarget.reset();
-    fillServiceSelect(document.querySelector("#adminServiceSelect"));
+    fillServiceSelects();
     renderAdmin();
   });
 
@@ -486,8 +563,14 @@ function disablePageZoom() {
   }, { passive: false });
 }
 
-disablePageZoom();
-renderPriceContent();
-initHomePage();
-initAdminPage();
-initRevealAnimations();
+async function initSite() {
+  disablePageZoom();
+  await loadServicesCatalog();
+  renderPriceContent();
+  fillServiceSelects();
+  initHomePage();
+  initAdminPage();
+  initRevealAnimations();
+}
+
+initSite();

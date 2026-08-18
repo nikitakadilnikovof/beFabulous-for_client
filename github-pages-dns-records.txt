@@ -1,0 +1,30 @@
+DNS records for be-fabulous-tr.com -> GitHub Pages
+
+Domain: be-fabulous-tr.com
+GitHub Pages source: nikitakadilnikovof.github.io/beFabulous-for_client/
+
+Required records:
+
+Type    Name    Content                         Proxy status
+A       @       185.199.108.153                 DNS only
+A       @       185.199.109.153                 DNS only
+A       @       185.199.110.153                 DNS only
+A       @       185.199.111.153                 DNS only
+CNAME   www     nikitakadilnikovof.github.io    DNS only
+
+Optional IPv6 records:
+
+Type    Name    Content                         Proxy status
+AAAA    @       2606:50c0:8000::153             DNS only
+AAAA    @       2606:50c0:8001::153             DNS only
+AAAA    @       2606:50c0:8002::153             DNS only
+AAAA    @       2606:50c0:8003::153             DNS only
+
+GitHub Pages setting:
+
+Repository: nikitakadilnikovof/beFabulous-for_client
+Settings -> Pages -> Custom domain:
+be-fabulous-tr.com
+
+After DNS validation succeeds in GitHub Pages, enable:
+Enforce HTTPS
