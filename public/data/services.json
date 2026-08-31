@@ -46,7 +46,12 @@
       ]
     }
   ],
-  "sewingServices": [],
+  "sewingServices": [
+    {
+      "name": "Юбка",
+      "price": "4500"
+    }
+  ],
   "includedItems": [
     "Консультация и обсуждение модели",
     "Снятие мерок",
