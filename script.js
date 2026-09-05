@@ -118,14 +118,26 @@ function saveOrders(orders) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(orders));
 }
 
+function addTurkishLiraSymbol(value) {
+  const price = String(value || "").trim();
+  if (!price || price.includes("₺") || price.includes("%") || !/\d/.test(price)) return price;
+
+  const priceWithoutCurrencyCode = price
+    .replace(/^(?:TRY|TL)\s*/i, "")
+    .replace(/\s*(?:TRY|TL)$/i, "")
+    .trim();
+
+  return `${priceWithoutCurrencyCode} ₺`;
+}
+
 function normalizeServiceItem(item) {
   if (Array.isArray(item)) {
-    return { name: String(item[0] || "").trim(), price: String(item[1] || "").trim() };
+    return { name: String(item[0] || "").trim(), price: addTurkishLiraSymbol(item[1]) };
   }
 
   return {
     name: String(item?.name || "").trim(),
-    price: String(item?.price || "").trim(),
+    price: addTurkishLiraSymbol(item?.price),
   };
 }
 
